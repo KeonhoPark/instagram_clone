@@ -1,59 +1,65 @@
 package toyProject.instagramClone.member;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @Entity
 @NoArgsConstructor
+@Setter
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
     private Long memberId;
-    @Column(name = "NAME")
     private String name;
-    @Column(name = "NICK_NAME")
+
+    @Column(name = "NICKNAME")
     private String nickName;
-    @Column(name = "PASSWORD")
+
     private String password;
-    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
-    @Column(name = "EMAIL")
     private String email;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "BIRTHDAY")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "PROFILE_IMG_URL")
     private String profileImgUrl;
 
-    @Column(name = "STATUS")
     private Enum status;
 
-    @Column(name = "WEBSITE_URL")
     private String websiteUrl;
-    @Column(name = "INTRODUCTION")
+
+    @Lob
     private String introduction;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_AT")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
-    public Member(String name) {
+    public Member(String name, String nickName, String password, String phoneNumber, String email, LocalDate birthday, String profileImgUrl, String websiteUrl, String introduction) {
         this.name = name;
+        this.nickName = nickName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.birthday = birthday;
+        this.profileImgUrl = profileImgUrl;
+        this.websiteUrl = websiteUrl;
+        this.introduction = introduction;
     }
 }
